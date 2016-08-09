@@ -15,14 +15,14 @@ import torndb
 
 class IndexHandle(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        self.render('../template/index.html')
+        self.render('base.html')
 
     def post(self):
         # username = self.get_argument("username")
         # password = self.get_argument("password")
         # self.write("username")
         self.set_cookie('username',self.get_argument('username', None))
-        self.render('../template/home.html')
+        self.render('home.html')
         # import pdb
         # pdb.set_trace()
 
@@ -40,7 +40,7 @@ class HomeHandle(tornado.web.RequestHandler):
         if not self.current_user:
             self.redirect("index.html")
             return
-        self.render('../template/home.html')
+        self.render('home.html')
 
 
 
@@ -63,18 +63,17 @@ class WebApplication(tornado.web.Application):
             # (r"/login.html",LoginHandle),
             # (r"/(.+?)\.(.+)",OtherHandle),
             (r"/home.html", HomeHandle)
-                    ]
-
-        super(WebApplication, self).__init__(handler)
+                   ]
 
         settings = {
-            'template_path':os.path.join(os.path.dirname(__file__),'template'),
-            'static_path':os.path.join(os.path.dirname(__file__),'static'),
+            'template_path':os.path.join(os.path.dirname(__file__),'../template'),
+            'static_path':os.path.join(os.path.dirname(__file__),'../static'),
             # 'login_url': '/index.html',
+            # 'cookie_secret': "l5mhjk23g",
             # 'cookie_secret': "l5mhjk23g",
         }
 
-
+        super(WebApplication, self).__init__(handler , **settings)
 
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(WebApplication())
