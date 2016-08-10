@@ -8,6 +8,7 @@ import torndb
 from define import *
 import MySQLdb
 from db import *
+import logging
 
 
 class LoginHandle(tornado.web.RequestHandler):
@@ -56,7 +57,7 @@ class WebApplication(tornado.web.Application):
         settings = {
             'template_path':os.path.join(os.path.dirname(__file__),'../template'),
             'static_path':os.path.join(os.path.dirname(__file__),'../static'),
-
+            'debug': True,
         }
 
         super(WebApplication, self).__init__(handler , **settings)
@@ -64,4 +65,6 @@ class WebApplication(tornado.web.Application):
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(WebApplication())
     http_server.listen(8888)
+    options.parse_command_line()
+    logging.debug("debug ...")
     tornado.ioloop.IOLoop.instance().start()
