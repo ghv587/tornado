@@ -5,12 +5,9 @@ import tornado.httpserver
 import os
 from tornado.options import define,options
 import torndb
-
-define("mysql_host", default="127.0.0.1:3306", help="database host")
-define("mysql_database", default="blog", help="database name")
-define("mysql_user", default="root", help="database user")
-define("mysql_password", default="123456", help="database password")
-
+from define import *
+import MySQLdb
+from db import *
 
 
 class LoginHandle(tornado.web.RequestHandler):
@@ -29,6 +26,7 @@ class LoginHandle(tornado.web.RequestHandler):
 class IndexHandle(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         self.render('index.html')
+
 
 class HomeHandle(tornado.web.RequestHandler):
     def get_current_user(self):
