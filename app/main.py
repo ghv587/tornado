@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 import tornado.ioloop
 import tornado.web
 import tornado.auth
@@ -12,29 +14,49 @@ import logging
 from monitor import *
 
 
+
 class LoginHandle(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         self.render('login.html')
 
-    def post(self):
+    def post(self,*args, **kwargs):
         username = self.get_argument("username")
         password = self.get_argument("password")
-
-
-        db = torndb.Connection(user=options.mysql_user,
-                               password=options.mysql_password,
-                               host=options.mysql_host,
-                               database=options.mysql_database, )
-        sql = 'select * from user where username= %s and password= %s'
-        db.query(sql, username, password)
-        if  username != username:
-            self.write("username wrong")
-        elif password != password:
-            self.write("password wrong")
-        elif username != username and password != password:
-            self.write("wrong")
+        sql = 'select id from user where username=%s and password=%s'
+        if db.get(sql, username, password) is None:
+            return self.write(
+                '''
+                <script>
+                    alert ("用户名或密码错误!")
+                    window.location.href="/"
+                </script>
+                            ''')
         else:
-            self.render('index.html')
+             self.render('index.html')
+
+
+        # if  username != 'ee':
+        #     return self.write(
+        #         '''
+        #         <script>
+        #             alert ("用户名或密码错误!")
+        #             window.location.href="/"
+        #         </script>
+        #                     ''')
+        # elif password != '444':
+        #     return self.write('''<script>
+        #                     alert ("用户名或密码错误!")
+        #     	        window.location.href="/"
+        #     		</script>
+        #                 ''')
+        # elif username != username and password != password:
+        #     return self.write('''<script>
+        #                     alert ("用户名或密码错误!")
+        #     	        window.location.href="/"
+        #     		</script>
+        #                 ''')
+        # else:
+        #     self.render('index.html')
 
 
 
@@ -67,6 +89,9 @@ class WebApplication(tornado.web.Application):
         }
 
         super(WebApplication, self).__init__(handler , **settings)
+
+
+
 
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(WebApplication())
