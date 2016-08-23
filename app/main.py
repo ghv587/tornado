@@ -14,8 +14,19 @@ import logging
 from monitor import *
 
 
+class BaseHandle(tornado.web.RequestHandler):
 
-class LoginHandle(tornado.web.RequestHandler):
+    def get_current_user(self):
+        return self.get_cookie("username")
+
+    # @tornado.web.authenticated
+    # def get(self):
+    #     if not self.current_user:
+    #         self.redirect('login.html')
+    #         return
+
+
+class LoginHandle(BaseHandle):
     def get(self, *args, **kwargs):
         self.render('login.html')
 
@@ -24,6 +35,7 @@ class LoginHandle(tornado.web.RequestHandler):
         password = self.get_argument("password")
         sql = 'select id from user where username=%s and password=%s'
         if db.get(sql, username, password) is None:
+
             return self.write(
                 '''
                 <script>
@@ -32,7 +44,10 @@ class LoginHandle(tornado.web.RequestHandler):
                 </script>
                             ''')
         else:
-             self.render('index.html')
+            self.set_cookie(username, self.get_argument("username"))
+            self.render('index.html')
+            # return self.write(self.get_secure_cookie('username'))
+
 
 
         # if  username != 'ee':
@@ -61,11 +76,10 @@ class LoginHandle(tornado.web.RequestHandler):
 
 
 
-class IndexHandle(tornado.web.RequestHandler):
-    @tornado.web.authenticated
-    def get(self, *args, **kwargs):
-        self.render('index.html')
-
+class IndexHandle(BaseHandle):
+    # @tornado.web.authenticated
+    def get(self, *args ,**kwargs):
+        self.render('index.html', user=self.current_user)
 
 
 
@@ -76,7 +90,7 @@ class WebApplication(tornado.web.Application):
             (r"/index.html", IndexHandle),
             (r"/login.html", LoginHandle),
             (r"/", LoginHandle),
-            (r"/monitor.html", MonitorHandle),
+            (r"/func.html", MonitorHandle),
             # (r"/(.+?)\.(.+)",OtherHandle),
 
                    ]
@@ -86,6 +100,7 @@ class WebApplication(tornado.web.Application):
             'static_path':os.path.join(os.path.dirname(__file__),'../static'),
             'debug': True,
             'login_url': '/login.html',
+            # 'cookie_secret': "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo="
         }
 
         super(WebApplication, self).__init__(handler , **settings)
