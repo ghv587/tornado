@@ -11,7 +11,8 @@ from define import *
 import MySQLdb
 from db import *
 import logging
-from monitor import *
+from monitor import MonitorHandle
+from addhost import AddhostHandle
 
 
 class BaseHandle(tornado.web.RequestHandler):
@@ -91,6 +92,7 @@ class WebApplication(tornado.web.Application):
             (r"/login.html", LoginHandle),
             (r"/", LoginHandle),
             (r"/func.html", MonitorHandle),
+            (r"/func1.html", AddhostHandle),
             # (r"/(.+?)\.(.+)",OtherHandle),
 
                    ]

@@ -1,11 +1,11 @@
 import tornado
 import tornado.web
-from main import BaseHandle
-from tornado import escape
 
-class MonitorHandle(BaseHandle):
+
+
+class MonitorHandle(tornado.web.RequestHandler):
     # @tornado.web.authenticated
-    def get(self):
+    def get(self, *args, **kwargs):
         # self.current_user = self.get_secure_cookie
         # if not self.current_user:
         #     self.redirect('login.html')
