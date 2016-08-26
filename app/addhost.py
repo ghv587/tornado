@@ -2,6 +2,10 @@
 import paramiko
 import tornado
 import tornado.web
+import pyrestful.rest
+from pyrestful.rest import put, get, post ,delete
+from pyrestful import mediatypes
+
 
 
 
@@ -12,10 +16,12 @@ class AddhostHandle(tornado.web.RequestHandler):
 
     def post(self, *args, **kwargs):
         ssh = paramiko.SSHClient()
-        # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect("127.0.0.1", 22, "zzp", "zzp")
         stdin, stdout, stderr = ssh.exec_command("pwd")
         adhost=stdout.readlines()
-        # print stdout.readlines()
+        print stdout.readlines()
         ssh.close()
         self.render('func1.html',adhost=adhost)
+
+

@@ -13,7 +13,7 @@ from db import *
 import logging
 from monitor import MonitorHandle
 from addhost import AddhostHandle
-
+from utils.restapi.app import *
 
 class BaseHandle(tornado.web.RequestHandler):
 
@@ -25,6 +25,8 @@ class BaseHandle(tornado.web.RequestHandler):
     #     if not self.current_user:
     #         self.redirect('login.html')
     #         return
+
+
 
 
 class LoginHandle(BaseHandle):
@@ -100,6 +102,7 @@ class WebApplication(tornado.web.Application):
         settings = {
             'template_path':os.path.join(os.path.dirname(__file__),'../template'),
             'static_path':os.path.join(os.path.dirname(__file__),'../static'),
+            'utils_path':os.path.join(os.path.dirname(__file__),'../utils'),
             'debug': True,
             'login_url': '/login.html',
             # 'cookie_secret': "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo="
@@ -113,6 +116,7 @@ class WebApplication(tornado.web.Application):
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(WebApplication())
     http_server.listen(8888)
+
     options.parse_command_line()
     logging.debug("debug ...")
     tornado.ioloop.IOLoop.instance().start()
