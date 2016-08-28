@@ -19,6 +19,13 @@
        <form action="#" method="post"  >
       <input name="create1" type="button"   class="btn btn-primary btn-sm" value="添加主机" >
       &nbsp;&nbsp;&nbsp;&nbsp;
+      <input name="create" type="button" onClick= "return sure2()" class="btn btn-warning btn-sm" value="主机" >
+           <script language="JavaScript">
+           function sure2(){
+               var info = '{{adhost2}}';
+               alert (info);
+           }
+           </script>
       <input name="create" type="button" onClick= "alert('adhost')" class="btn btn-warning btn-sm" value="连接主机" >
       <input name="create" type="button" onClick= "return sure()" class="btn btn-warning btn-sm" value="sure" >
            <script language="JavaScript">

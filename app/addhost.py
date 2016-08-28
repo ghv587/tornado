@@ -5,6 +5,7 @@ import tornado.web
 import pyrestful.rest
 from pyrestful.rest import put, get, post ,delete
 from pyrestful import mediatypes
+from db import *
 
 
 
@@ -20,8 +21,9 @@ class AddhostHandle(tornado.web.RequestHandler):
         ssh.connect("127.0.0.1", 22, "zzp", "zzp")
         stdin, stdout, stderr = ssh.exec_command("pwd")
         adhost=stdout.readlines()
+        adhost2=db_operation('select id from user').select()
         print stdout.readlines()
         ssh.close()
-        self.render('func1.html',adhost=adhost)
+        self.render('func1.html',adhost=adhost,adhost2=adhost2)
 
 
