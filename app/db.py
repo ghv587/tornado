@@ -4,6 +4,9 @@ from define import *
 import torndb
 import MySQLdb
 
+con = MySQLdb.Connection()
+
+
 #
 db = torndb.Connection(user=options.mysql_user,
                        password=options.mysql_password,

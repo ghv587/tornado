@@ -3,14 +3,15 @@ import tornado.web
 
 
 
-class MonitorHandle(tornado.web.RequestHandler):
-    # @tornado.web.authenticated
-    def get(self, *args, **kwargs):
-        # self.current_user = self.get_secure_cookie
-        # if not self.current_user:
-        #     self.redirect('login.html')
-        #     return
-        self.render('func.html')
+# class MonitorHandle(BaseHandle):
+#     @tornado.web.authenticated
+#     def get(self):
+#         self.get_secure_cookie("username")
+#         # self.current_user = self.get_secure_cookie
+#         # if not self.current_user:
+#         #     self.redirect('login.html')
+#         #     return
+#         self.render('func.html')
         # self.render('monitor.html', user=self.current_user)
 
 
