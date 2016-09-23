@@ -1,0 +1,94 @@
+
+{% extends "base.html" %}
+{% include "bar.html" %}
+{% include "left.html" %}
+{% block mid-one %}
+
+<div class="btn-group">
+  <a class="btn btn-danger" data-toggle="dropdown" href="#">
+    Action
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- dropdown menu links -->
+
+     <script language="JavaScript">
+           function sure3(){
+               var info = '{{add}}';
+               alert (info);
+           }
+           </script>
+      <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">添加</a></center></li>
+    <li role="presentation"><center><a role="menuitem" tabindex="-1" type="button" onClick= "return sure3()">添加2</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">修改</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">删除</a></center></li>
+        <li role="presentation" class="divider"></li>
+  </ul>
+</div>
+
+ <br>
+ <br>
+
+
+<div class="btn-group1">
+  <a class="btn btn-warning" data-toggle="dropdown" href="#">
+    Action
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- dropdown menu links -->
+      <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">添加</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">修改</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">删除</a></center></li>
+        <li role="presentation" class="divider"></li>
+  </ul>
+</div>
+
+<br>
+ <br>
+
+
+<div class="btn-group2">
+  <a class="btn btn-success" data-toggle="dropdown" href="#">
+    Action
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- dropdown menu links -->
+      <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">添加</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">修改</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">删除</a></center></li>
+        <li role="presentation" class="divider"></li>
+  </ul>
+</div>
+
+<br>
+ <br>
+
+
+<div class="btn-group3">
+  <a class="btn btn-primary" data-toggle="dropdown" href="#">
+    Action
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- dropdown menu links -->
+      <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">添加</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">修改</a></center></li>
+        <li role="presentation"><center><a role="menuitem" tabindex="-1" href="#">删除</a></center></li>
+        <li role="presentation" class="divider"></li>
+  </ul>
+</div>
+
+<!--<li><span class="label">Default</span></li>-->
+<!--<li><span class="label label-success">成功</span></li>-->
+<!--<li><span class="label label-warning">警告</span></li>-->
+<!--<li><span class="label label-important">重要</span></li>-->
+<!--<li><span class="label label-info">信息</span></li>-->
+<!--<li><span class="label label-inverse">反色</span></li>-->
+
+
+
+
+
+{% end %}

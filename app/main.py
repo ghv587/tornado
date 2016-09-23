@@ -14,7 +14,7 @@ import logging
 # from monitor import MonitorHandle
 from addhost import AddhostHandle
 from utils.restapi.app import *
-
+from app.utils.paracls.paramiko_class import *
 
 
 
@@ -58,6 +58,14 @@ class MonitorHandle(BaseHandle):
     def get(self):
         self.render('func.html')
 
+class OperfileHandle(BaseHandle):
+
+    @tornado.web.authenticated
+
+    def get(self):
+        add = paramiko_exec('ls')
+        self.render('operfile.html',add=add)
+
 class WebApplication(tornado.web.Application):
     def __init__(self):
         handler = [
@@ -66,6 +74,7 @@ class WebApplication(tornado.web.Application):
             (r"/", LoginHandle),
             (r"/func", MonitorHandle ),
             (r"/func1", AddhostHandle),
+            (r"/operfile", OperfileHandle),
             # (r"/(.+?)\.(.+)",OtherHandle)
 
                    ]

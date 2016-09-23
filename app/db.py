@@ -4,7 +4,7 @@ from define import *
 import torndb
 import MySQLdb
 
-con = MySQLdb.Connection()
+# con = MySQLdb.Connection()
 
 
 #
