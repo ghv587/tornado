@@ -29,6 +29,7 @@ class BaseHandle(tornado.web.RequestHandler):
 
 class LoginHandle(BaseHandle):
     def get(self):
+
         self.render('login.html')
 
     def post(self):
@@ -49,6 +50,7 @@ class LoginHandle(BaseHandle):
 
 
 class IndexHandle(BaseHandle):
+    @tornado.web.authenticated
     def get(self, *args ,**kwargs):
         self.render('index.html')
 
@@ -66,15 +68,31 @@ class OperfileHandle(BaseHandle):
         add = paramiko_exec('ls')
         self.render('operfile.html',add=add)
 
+
+class LogoutHandle(BaseHandle):
+
+
+    def get(self):
+        self.clear_cookie("username")
+        self.redirect("/")
+
+class ApplicationHandle(BaseHandle):
+    @tornado.web.authenticated
+
+    def get(self):
+        self.render('application.html')
+
 class WebApplication(tornado.web.Application):
     def __init__(self):
         handler = [
             (r"/index", IndexHandle),
             (r"/login", LoginHandle),
-            (r"/", LoginHandle),
+            (r"/", IndexHandle),
             (r"/func", MonitorHandle ),
             (r"/func1", AddhostHandle),
             (r"/operfile", OperfileHandle),
+            (r"/logout", LogoutHandle),
+            (r"/application", ApplicationHandle),
             # (r"/(.+?)\.(.+)",OtherHandle)
 
                    ]
